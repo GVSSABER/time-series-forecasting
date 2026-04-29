@@ -1,10 +1,13 @@
-# Time Series Forecasting (Sales Prediction)
+# Time Series Forecasting
+
+## 📖 Project Overview
+This project forecasts future sales trends using time series models to support business planning.
 
 ## 📌 Problem Statement
-Forecast future sales based on historical data.
+Businesses need accurate demand predictions to manage inventory and resources.
 
 ## 🎯 Objective
-To analyze trends and predict future values using time series models.
+To analyze historical data and predict future sales.
 
 ## 🛠 Tools & Technologies
 - Python
@@ -15,23 +18,18 @@ To analyze trends and predict future values using time series models.
 Historical sales data
 
 ## ⚙️ Approach
-- Data preprocessing
-- Trend and seasonality analysis
-- Model building (ARIMA / LSTM)
-- Forecasting future values
+- Performed trend and seasonality analysis
+- Built forecasting models (ARIMA / LSTM)
+- Evaluated predictions
 
 ## 📈 Key Results
-- Identified seasonal patterns
-- Predicted future sales trends
+- Identified seasonal demand patterns
+- Generated future sales forecasts
 
 ## 💡 Business Insights
-- Sales depend on seasonal demand
-- Forecast helps inventory planning
+- Sales follow recurring seasonal trends
+- Forecasting helps optimize inventory and reduce stock issues
+- Demand spikes can be predicted in advance
 
 ## 🚀 Conclusion
-Supports business planning through accurate forecasting.
-## 📁 Dataset / Full Project File
-
-Due to size limitations, the full dataset/project file is stored here:
-
-https://drive.google.com/file/d/1Fg2fjFZekYMq8SzcS1tGAnORWhczAQ_5/view?usp=sharing
+This project supports strategic planning through predictive analytics.
