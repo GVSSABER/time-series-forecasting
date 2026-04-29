@@ -1,0 +1,86 @@
+# =========================================
+# 1. IMPORT LIBRARIES
+# =========================================
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from pmdarima import auto_arima
+from statsmodels.tsa.arima.model import ARIMA
+
+# =========================================
+# 2. LOAD DATA
+# =========================================
+data = pd.read_csv("train.csv")   # make sure file is in same folder
+
+print(data.head())
+
+# =========================================
+# 3. PREPROCESSING
+# =========================================
+# Convert date
+data['date'] = pd.to_datetime(data['date'])
+
+# Sort
+data = data.sort_values('date')
+
+# Set index
+data.set_index('date', inplace=True)
+
+# Convert to single time series (VERY IMPORTANT)
+data_ts = data.groupby('date')['sales'].sum()
+
+print(data_ts.head())
+
+# =========================================
+# 4. VISUALIZATION
+# =========================================
+plt.figure(figsize=(10,5))
+plt.plot(data_ts)
+plt.title("Total Sales Over Time")
+plt.xlabel("Date")
+plt.ylabel("Sales")
+plt.show()
+
+# =========================================
+# 5. AUTO ARIMA MODEL
+# =========================================
+auto_model = auto_arima(
+    data_ts,
+    seasonal=True,
+    m=7,              # weekly seasonality
+    trace=True,
+    error_action='ignore',
+    suppress_warnings=True
+)
+
+print(auto_model.summary())
+
+# =========================================
+# 6. BUILD FINAL ARIMA MODEL
+# =========================================
+# Get best parameters
+p, d, q = auto_model.order
+
+model = ARIMA(data_ts, order=(p, d, q))
+model_fit = model.fit()
+
+print(model_fit.summary())
+
+# =========================================
+# 7. FORECAST FUTURE
+# =========================================
+forecast = model_fit.forecast(steps=30)
+
+print("\nNext 30 Days Forecast:")
+print(forecast)
+
+# =========================================
+# 8. PLOT FORECAST
+# =========================================
+plt.figure(figsize=(10,5))
+plt.plot(data_ts, label="Actual")
+plt.plot(forecast, label="Forecast", color='red')
+plt.legend()
+plt.title("Sales Forecast")
+plt.show()
